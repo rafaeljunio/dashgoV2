@@ -1,7 +1,9 @@
 import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import dynamic from 'next/dynamic';
+import { useEffect } from "react";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
+import { api } from "../services/api";
 import { theme } from "../styles/theme";
 
 // Error window
@@ -67,6 +69,13 @@ const series = [
 ];
 
 export default function Dashboard() {
+
+  useEffect(() => {
+    api.get('/me')
+      .then(response => console.log(response))
+      .catch(err => console.log(err))
+  }, [])
+
   return (
     <Flex direction="column" h="100vh">
 

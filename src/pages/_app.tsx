@@ -8,23 +8,22 @@ import { theme } from '../styles/theme';
 
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { queryClient } from '../services/queryClient';
+import { AuthProvider } from '../contexts/AuthContext';
 
 // variável de ambiente setada automaticamente pelo next
-if (process.env.NODE_ENV === 'development') {
-  makeServer();
-}
+// if (process.env.NODE_ENV === 'development') {
+//   makeServer();
+// }
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme}>
+      <AuthProvider>
         <SidebarDrawerProvider>
           <Component {...pageProps} />
         </SidebarDrawerProvider>
-      </ChakraProvider>
-
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+      </AuthProvider>
+    </ChakraProvider>
   );
 }
 

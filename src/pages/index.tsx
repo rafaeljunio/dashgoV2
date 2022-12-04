@@ -1,8 +1,10 @@
-import { Button, Flex, Stack } from '@chakra-ui/react'
+import { Button, Flex, Stack, useConst } from '@chakra-ui/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Input } from '../components/Form/Input'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { AuthContext } from '../contexts/AuthContext';
+import { useContext } from 'react';
 
 type SignInFormData = {
   email: string;
@@ -16,13 +18,16 @@ const signInFormSchema = yup.object().shape({
 
 export default function SignIn() {
 
+  const { signIn } = useContext(AuthContext);
+
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SignInFormData>({
     resolver: yupResolver(signInFormSchema)
   });
 
   const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
-    await new Promise(resolve => setTimeout(resolve, 5000));
-    console.log(values)
+    //await new Promise(resolve => setTimeout(resolve, 5000));
+
+    await signIn(values)
   }
 
   return (
