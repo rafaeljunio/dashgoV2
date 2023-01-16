@@ -1,10 +1,12 @@
-import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
+import { useEffect } from 'react';
+
+import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
-import { useEffect } from "react";
-import { Header } from "../components/Header";
-import { Sidebar } from "../components/Sidebar";
-import { api } from "../services/api";
-import { theme } from "../styles/theme";
+
+import { Header } from '../components/Header';
+import { Sidebar } from '../components/Sidebar';
+import { api } from '../services/api';
+import { theme } from '../styles/theme';
 
 // Error window
 // Carrega um componente de forma dinâmica
@@ -12,7 +14,7 @@ const Chart = dynamic(() => import('react-apexcharts'), {
   //Opção que especifica que seja carregado pelo lado do browser
   //server-side handling
   ssr: false,
-})
+});
 
 const options = {
   chart: {
@@ -22,7 +24,7 @@ const options = {
     zoom: {
       enabled: false,
     },
-    foreColor: theme.colors.gray[500]
+    foreColor: theme.colors.gray[500],
   },
   grid: {
     show: false,
@@ -31,15 +33,15 @@ const options = {
     enabled: false,
   },
   tooltip: {
-    enabled: false
+    enabled: false,
   },
   xaxis: {
     type: 'datetime',
     axisBorder: {
-      color: theme.colors.gray[600]
+      color: theme.colors.gray[600],
     },
     axisTicks: {
-      color: theme.colors.gray[600]
+      color: theme.colors.gray[600],
     },
     categories: [
       '2021-03-18T00:00:00.000Z',
@@ -64,48 +66,45 @@ const options = {
 const series = [
   {
     name: 'series1',
-    data: [31, 120, 10, 28, 18, 34]
-  }
+    data: [31, 120, 10, 28, 18, 34],
+  },
 ];
 
 export default function Dashboard() {
-
   useEffect(() => {
-    api.get('/me')
+    api
+      .get('/me')
       .then(response => console.log(response))
-      .catch(err => console.log(err))
-  }, [])
+      .catch(err => console.log(err));
+  }, []);
 
   return (
     <Flex direction="column" h="100vh">
-
       <Header />
       <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
         <Sidebar />
 
-        <SimpleGrid flex="1" gap="4" minChildWidth="320px" alignContent="flex-start">
-          <Box
-            p={["6", "8"]}
-            bg="gray.800"
-            borderRadius={8}
-            pb="4"
-          >
-            <Text fontSize="lg" mb="4">Inscritos da semana</Text>
+        <SimpleGrid
+          flex="1"
+          gap="4"
+          minChildWidth="320px"
+          alignContent="flex-start"
+        >
+          <Box p={['6', '8']} bg="gray.800" borderRadius={8} pb="4">
+            <Text fontSize="lg" mb="4">
+              Inscritos da semana
+            </Text>
             <Chart options={options} series={series} type="area" height={160} />
           </Box>
 
-          <Box
-            p="8"
-            bg="gray.800"
-            borderRadius={8}
-            pb="4"
-          >
-            <Text fontSize="lg" mb="4">Taxa de abertura</Text>
+          <Box p="8" bg="gray.800" borderRadius={8} pb="4">
+            <Text fontSize="lg" mb="4">
+              Taxa de abertura
+            </Text>
             <Chart options={options} series={series} type="area" height={160} />
           </Box>
         </SimpleGrid>
-
       </Flex>
     </Flex>
-  )
+  );
 }

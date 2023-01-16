@@ -1,5 +1,3 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react/jsx-no-undef */
 import { useState } from 'react';
 import { RiAddLine, RiPencilLine } from 'react-icons/ri';
 
@@ -58,7 +56,6 @@ export default function UserList({ users }) {
   return (
     <Box>
       <Header />
-
       <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
         <Sidebar />
 

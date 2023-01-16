@@ -1,14 +1,14 @@
+import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+
 import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
-import { QueryClientProvider } from 'react-query';
 
+import { AuthProvider } from '../contexts/AuthContext';
 import { SidebarDrawerProvider } from '../contexts/SidebarDrawerContext';
 import { makeServer } from '../services/mirage';
-import { theme } from '../styles/theme';
-
-import { ReactQueryDevtools } from 'react-query/devtools'
 import { queryClient } from '../services/queryClient';
-import { AuthProvider } from '../contexts/AuthContext';
+import { theme } from '../styles/theme';
 
 // variável de ambiente setada automaticamente pelo next
 // if (process.env.NODE_ENV === 'development') {
